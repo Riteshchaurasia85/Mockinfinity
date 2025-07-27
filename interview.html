@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interview Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/interview.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Virtual Interview Practice</h1>
+
+    <label for="question">Question:</label>
+    <p id="question">Tell me about yourself.</p>
+
+    <label for="answer">Your Answer:</label>
+    <textarea id="answer" rows="5" placeholder="Type your answer or use voice input..."></textarea>
+    
+    <div class="buttons">
+      <button onclick="startVoiceInput()">🎤 Speak</button>
+      <button onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <div class="feedback">
+      <h3>Feedback:</h3>
+      <p id="feedbackText">Your feedback will appear here after submission.</p>
+    </div>
+  </div>
+
+  <script>
+    function startVoiceInput() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US';
+      recognition.start();
+      recognition.onresult = function(event) {
+        document.getElementById('answer').value = event.results[0][0].transcript;
+      };
+    }
+
+    function submitAnswer() {
+      const answer = document.getElementById('answer').value.trim();
+      if (answer === "") {
+        alert("Please enter or speak your answer first.");
+        return;
+      }
+
+      // Placeholder feedback (AI integration will come later)
+      document.getElementById('feedbackText').innerText =
+        "Great start! Try to structure your answer clearly. Keep it relevant and concise.";
+    }
+  </script>
+</body>
+</html>
